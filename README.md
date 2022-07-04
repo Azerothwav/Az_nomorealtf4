@@ -9,4 +9,32 @@ Condition to have for the player to be detected as banned:
 
 This is a small script made without much pretension except to help you, use it at your own will, it was created at the base for a server but it seems that they are too stupid to understand the interest...
 
+If you just want to integrate it to bansql you just have to copy the code in the github read me and put it on the server side so that everything works directly !
+
 Sincerely, Azeroth
+
+
+# Exemple of bansql plugin
+
+```
+RegisterServerEvent('az_bansql:altf4')
+AddEventHandler('az_bansql:altf4', function(reason, data, target)
+	local duree     = 2
+	local reason    = reason
+	target = tonumber(target)
+
+	if not reason then reason = "Az_anticheat" end
+
+	local sourceplayername = "Az_anticheat"
+	local targetplayername = 'Alt-F4'
+
+	local license = data.license
+	local identifier = data.identifier
+	local liveid = data.liveid
+	local xblid  = data.xblid
+	local discord = data.discord
+	local playerip = data.playerip
+	
+	ban(target,license,identifier,liveid,xblid,discord,playerip,targetplayername,sourceplayername,duree,reason,0)
+end)
+```
