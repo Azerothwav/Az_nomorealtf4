@@ -4,20 +4,20 @@ RegisterNetEvent('az_nomorealtf4:sync', function(coordsplayer, playersource, dat
 	end
 	havetodraw = true
 	StartDraw()
-	Citizen.SetTimeout(15000, function()
+	SetTimeout(15000, function()
 		havetodraw = false
 	end)
 end)
 
 function StartDraw()
-	Citizen.CreateThread(function()
+	CreateThread(function()
 		while havetodraw do
 			koords = GetEntityCoords(PlayerPedId())
-			dist = GetDistanceBetweenCoords(koords, coordsplayer, true)
+			dist = #(koords - coordsplayer)
 			if dist <= 15 then
 				Draw3DText(coordsplayer.x, coordsplayer.y, coordsplayer.z + 1.23, '[ID: ' ..playersource.. '] disconnect')
 			end
-			Citizen.Wait(0)
+			Wait(0)
 		end
 	end)
 end
